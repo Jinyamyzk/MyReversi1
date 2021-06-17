@@ -4,13 +4,16 @@
 
 Board board;
 Ai ai;
+int maxDepth;
+
 int stoneColor = 1; // 1:黒、-1:白とする
 
 void setup() {
   size(400,400);  
+  maxDepth = 4;
   board = new Board();
   board.initGame();
-  ai = new Ai(board);
+  ai = new Ai(board, maxDepth);
 } 
 
 void draw() {  
@@ -19,6 +22,7 @@ void draw() {
 
 void mouseClicked() {
   Cell cell = board.getCellAtXY(mouseX, mouseY); 
+  println(cell.col,cell.row);
   ArrayList<Cell> cellsToFlip = board.cellsToFlipWith(cell, stoneColor);
 
   //引っ繰り返せるマスがある場合は石が置ける
@@ -43,7 +47,10 @@ void mouseClicked() {
 
 void turnForAi() {
     // 置くマスを考えてかえす
-  Cell cell = ai.think();  
+  Cell cell = ai.think(board, stoneColor);  
+  //Cell cell = board.getCellAt(_cell.col, _cell.row);
+  println(cell.row,cell.col);
+  
   // そこに置いた場合にひっくりかえすマス
   ArrayList<Cell> cellsToFlip = board.cellsToFlipWith(cell, stoneColor);
 

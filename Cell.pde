@@ -37,6 +37,10 @@ class Cell {
   void putStone(int stoneColor){
     stone = stoneColor;  
   }
+  
+  void removeStone(){
+    stone = 0;
+  }
 
   void flip() {
     stone *= -1;
@@ -44,5 +48,9 @@ class Cell {
 
   boolean hasStone() {
     return (stone != 0); 
+  }
+  
+  boolean isNearCorner(Cell cell){
+    return true;
   }
 }
