@@ -29,7 +29,8 @@ class Ai {
     ArrayList<Cell> candidates = b.getEmptyCells();
     Tuple bestCell = null;
     if (depth >= this.maxDepth){
-      int count = evaluate(candidates);
+      println("OK");
+      int count = evaluate(candidates,b);
       bestCell = new Tuple(null, count);
     } else {
     for (Cell cell: candidates){
@@ -70,7 +71,7 @@ class Ai {
     ArrayList<Cell> candidates = b.getEmptyCells();
     Tuple bestCell = null;
     if (depth >= this.maxDepth){
-      int count = evaluate(candidates);
+      int count = evaluate(candidates,b);
       bestCell = new Tuple(null, count);
     } else {
     for (Cell cell: candidates){
@@ -85,7 +86,7 @@ class Ai {
           c.flip();
         }
         int nextStone = stoneColor * -1;
-        Tuple value = searchBoardTree2(b, nextStone, depth+1);
+        Tuple value = searchBoardTree1(b, nextStone, depth+1);
         value.c = cell;
         v_list.add(value);
         for(Cell c: cellsToFlip){
@@ -95,7 +96,7 @@ class Ai {
       }   
       int max = -100;
       for (Tuple t: v_list){
-        if (t.v < max){
+        if (t.v > max){
           max = t.v;
           bestCell = t;
         }
@@ -106,7 +107,7 @@ class Ai {
   return bestCell;
   }
   
-  int evaluate(ArrayList<Cell> candidates){
+  int evaluate(ArrayList<Cell> candidates, Board b){
     int count=0;
     for (Cell cell: candidates){
       ArrayList<Cell> cellsToFlip = b.cellsToFlipWith(cell,  stoneColor);

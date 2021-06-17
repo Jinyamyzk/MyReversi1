@@ -3,11 +3,11 @@ Board board;
 Ai ai;
 int maxDepth;
 
-int stoneColor = 1; // 1:黒、-1:白とする
+int stoneColor = 4; // 1:黒、-1:白とする
 
 void setup() {
   size(400,400);  
-  maxDepth = 4;
+  maxDepth = 6;
   board = new Board();
   board.initGame();
   ai = new Ai(board, maxDepth);
