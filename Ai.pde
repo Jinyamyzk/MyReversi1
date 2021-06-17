@@ -61,14 +61,49 @@ class Ai {
       }
     }
    
-    return bestCell;
+    }
+  return bestCell;
   }
   
   Tuple searchBoardTree2(Board b, int stoneColor, int depth){
+    ArrayList<Tuple> v_list = new ArrayList<Tuple>();
     ArrayList<Cell> candidates = b.getEmptyCells();
-    
+    Tuple bestCell = null;
+    if (depth >= this.maxDepth){
+      int count = evaluate(candidates);
+      bestCell = new Tuple(null, count);
+    } else {
+    for (Cell cell: candidates){
+      ArrayList<Cell> cellsToFlip = b.cellsToFlipWith(cell,  stoneColor);
+      if (cellsToFlip.size() == 0){
+        continue;
+      } else {
+        // 石を置いて
+        cell.putStone(stoneColor);  
+        // それぞれひっくり返す
+        for(Cell c: cellsToFlip){
+          c.flip();
+        }
+        int nextStone = stoneColor * -1;
+        Tuple value = searchBoardTree2(b, nextStone, depth+1);
+        value.c = cell;
+        v_list.add(value);
+        for(Cell c: cellsToFlip){
+          c.flip();
+        }
+        cell.removeStone();
+      }   
+      int max = -100;
+      for (Tuple t: v_list){
+        if (t.v < max){
+          max = t.v;
+          bestCell = t;
+        }
+      }
     }
-    return bestCell;
+   
+    }
+  return bestCell;
   }
   
   int evaluate(ArrayList<Cell> candidates){
