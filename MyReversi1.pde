@@ -3,7 +3,7 @@ Board board;
 Ai ai;
 int maxDepth;
 
-int stoneColor = 4; // 1:黒、-1:白とする
+int stoneColor = 1; // 1:黒、-1:白とする
 
 void setup() {
   size(400,400);  
