@@ -3,7 +3,15 @@ class Ai {
   Board board;
   int stoneColor;
   int maxDepth;
-
+  int boardValue[][] = {{45, -11, 4, -1, -1, 4, -11, 45}, 
+    {-11, -16, -1, -3, -3, 2, -16, -11}, 
+    {4, -1, 2, -1, -1, 2, -1, 4}, 
+    {-1, -3, -1, 0, 0, -1, -3, -1}, 
+    {-1, -3, -1, 0, 0, -1, -3, -1}, 
+    {4, -1, 2, -1, -1, 2, -1, 4}, 
+    {-11, -16, -1, -3, -3, 2, -16, -11}, 
+    {45, -11, 4, -1, -1, 4, -11, 45}
+  };
   Ai(Board board, int maxDepth) {
     this.board = board;
     this.stoneColor = -1;// 白
@@ -25,7 +33,7 @@ class Ai {
     ArrayList<Cell> candidates = b.getEmptyCells();
     Tuple bestCell = null;
     if (depth >= this.maxDepth || candidates.size()==0) {
-      int count = evaluate(candidates, b);
+      int count = evaluate2(b,stoneColor);
       bestCell = new Tuple(null, count);
     } else {
       for (Cell cell : candidates) {
@@ -55,7 +63,7 @@ class Ai {
         value.c = null;
         v_list.add(value);
       }
-      int max = -100;
+      int max = -10000;
       for (Tuple t : v_list) {
         if (t.v > max) {
           max = t.v;
@@ -71,7 +79,7 @@ class Ai {
     ArrayList<Cell> candidates = b.getEmptyCells();
     Tuple bestCell = null;
     if (depth >= this.maxDepth || candidates.size()==0) {
-      int count = evaluate(candidates, b);
+      int count = evaluate2(b,stoneColor);
       bestCell = new Tuple(null, count);
     } else {
       for (Cell cell : candidates) {
@@ -101,7 +109,7 @@ class Ai {
         value.c = null;
         v_list.add(value);
       }
-      int min = 100;
+      int min = 10000;
       for (Tuple t : v_list) {
         if (t.v < min) {
           min = t.v;
@@ -121,5 +129,18 @@ class Ai {
       }
     }
     return count;
+  }
+
+  int evaluate2(Board b, int stoneColor){
+    int sumValue = 0;
+    for (ArrayList<Cell> row : b.cells){
+      for (Cell cell : row){
+        sumValue += cell.stone * boardValue[cell.row][cell.col];  
+      }
+    }
+    if (stoneColor == -1){
+      sumValue *= -1;
+    }
+    return sumValue;
   }
 }
