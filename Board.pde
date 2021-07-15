@@ -23,10 +23,10 @@ class Board {
   }
 
   void initGame() {
-    getCellAt(3,3).putStone( 1 );
-    getCellAt(4,4).putStone( 1 );
-    getCellAt(3,4).putStone( -1 );
-    getCellAt(4,3).putStone( -1 );
+    getCellAt(3,3).putStone( -1 );
+    getCellAt(4,4).putStone( -1 );
+    getCellAt(3,4).putStone( 1 );
+    getCellAt(4,3).putStone( 1 );
   }
 
   /**

@@ -7,10 +7,12 @@ int stoneColor = 1; // 1:黒、-1:白とする
 
 void setup() {
   size(400,400);  
-  maxDepth = 6;
+  maxDepth = 2;
   board = new Board();
   board.initGame();
   ai = new Ai(board, maxDepth);
+  turnForAi();
+  stoneColor *= -1;
 } 
 
 void draw() {  
@@ -37,7 +39,7 @@ void mouseClicked() {
 
   stoneColor *= -1; // ターンエンド。石の色を反転させる
   // 白だったらAIのターン
-  if( stoneColor == -1){
+  if( stoneColor == 1){
      turnForAi(); 
   }
 }
