@@ -33,8 +33,11 @@ class Ai {
     ArrayList<Cell> candidates = b.getEmptyCells();
     Tuple bestCell = null;
     if (depth >= this.maxDepth || candidates.size()==0) {
-      int count = evaluate2(b,stoneColor);
-      bestCell = new Tuple(null, count);
+      int score = evaluate2(b,stoneColor);
+      int count = evaluate(candidates, b);
+      println("score: ", score, "count: ", count);
+      int value = score + count;
+      bestCell = new Tuple(null, value);
     } else {
       for (Cell cell : candidates) {
         ArrayList<Cell> cellsToFlip = b.cellsToFlipWith(cell, stoneColor);
